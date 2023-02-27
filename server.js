@@ -8,9 +8,7 @@ import { Image } from "canvas";
 
 const app = express();
 const corsOptions = {
-origin:["http://localhost:5173","https://water-stamp.vercel.app"],
-methods:["GET","POST"],
-optionsSuccessStatus: 200
+origin:["http://localhost:5173","https://water-stamp.vercel.app"]
 }
 
 
