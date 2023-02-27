@@ -1,8 +1,7 @@
 import express, { json } from "express";
 import cors from "cors";
 import { drawText, drawImage } from "./methods/helper.js";
-import { createCanvas } from '@napi-rs/canvas';
-import { registerFont } from 'canvas';
+import { createCanvas,GlobalFonts } from '@napi-rs/canvas';
 import { Image } from '@napi-rs/canvas';
 const app = express();
 app.use(cors(
@@ -13,14 +12,20 @@ app.use(cors(
 app.use(json({ limit: "50mb" }));
 
 // registering fonts
-registerFont("./assets/fonts/Chillax-Variable.ttf", { family: "Chillax Variable" });
-registerFont("./assets/fonts/ClashGrotesk-Variable.ttf", {
-  family: "Clash Grotesk Variable",
-});
-registerFont("./assets/fonts/GeneralSans-Variable.ttf", {
-  family: "General Sans Variable",
-});
-registerFont("./assets/fonts/Satoshi-Variable.ttf", { family: "Satoshi Variable" });
+GlobalFonts.registerFromPath(join(__dirname, ".","assets",".","fonts","Chillax-Variable.ttf"), "Chillax Variable");
+GlobalFonts.registerFromPath(join(__dirname, ".","assets",".","fonts","ClashGrotesk-Variable.ttf"), "Clash Grotesk Variable");
+GlobalFonts.registerFromPath(join(__dirname, ".","assets",".","fonts","GeneralSans-Variable.ttf"), "General Sans Variable");
+GlobalFonts.registerFromPath(join(__dirname, ".","assets",".","fonts","Satoshi-Variable.ttf"), "Satoshi Variable");
+
+
+// registerFont("./assets/fonts/Chillax-Variable.ttf", { family: "Chillax Variable" });
+// registerFont("./assets/fonts/ClashGrotesk-Variable.ttf", {
+//   family: "Clash Grotesk Variable",
+// });
+// registerFont("./assets/fonts/GeneralSans-Variable.ttf", {
+//   family: "General Sans Variable",
+// });
+// registerFont("./assets/fonts/Satoshi-Variable.ttf", { family: "Satoshi Variable" });
 
 app.post("/image", (req, res) => {
  
