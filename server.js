@@ -24,8 +24,6 @@ registerFont("./assets/fonts/GeneralSans-Variable.ttf", {
 });
 registerFont("./assets/fonts/Satoshi-Variable.ttf", { family: "Satoshi Variable" });
 
-
-
 app.post("/image", (req, res) => {
   const DOM = new JSDOM(`<!doctype html><html><body></body></html>`, {
     resources: "usable",
