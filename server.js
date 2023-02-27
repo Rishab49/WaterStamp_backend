@@ -19,7 +19,9 @@ registerFont("./assets/fonts/GeneralSans-Variable.ttf", {
 registerFont("./assets/fonts/Satoshi-Variable.ttf", { family: "Satoshi Variable" });
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin:"*"
+}));
 
 
 app.use(json({ limit: "50mb" }));
