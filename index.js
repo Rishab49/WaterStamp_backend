@@ -2,10 +2,9 @@ import express, { json } from "express";
 import cors from "cors";
 import { JSDOM } from "jsdom";
 import { drawText, drawImage } from "./methods/helper.js";
-import { createCanvas } from "canvas";
-import { registerFont } from "canvas";
-import { Image } from "canvas";
-
+import { createCanvas } from '@napi-rs/canvas';
+import { registerFont } from 'canvas';
+import { Image } from '@napi-rs/canvas';
 const app = express();
 app.use(cors(
   {
