@@ -9,7 +9,7 @@ import { Image } from "canvas";
 const app = express();
 app.use(cors(
   {
-    origin:"https://water-stamp.vercel.app"
+    origin:"*"
   }
 ));
 app.use(json({ limit: "50mb" }));
