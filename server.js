@@ -16,8 +16,6 @@ optionsSuccessStatus: 200
 
 // middleware to parse the incoming request and for cors
 app.use(cors(corsOptions));
-app.use(express.json());
-
 app.use(json({ limit: "50mb" }));
 app.post("/test",(_,res) => res.send("done"));
 
