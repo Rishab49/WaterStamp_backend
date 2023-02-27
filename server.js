@@ -6,7 +6,14 @@ import { createCanvas } from "canvas";
 import { registerFont } from "canvas";
 import { Image } from "canvas";
 
-
+const app = express();
+app.use(cors(
+  {
+    origin:"https://water-stamp.vercel.app"
+  }
+));
+app.use(json({ limit: "50mb" }));
+app.post("/test",(_,res) => res.send("done"));
 
 // registering fonts
 registerFont("./assets/fonts/Chillax-Variable.ttf", { family: "Chillax Variable" });
@@ -18,17 +25,7 @@ registerFont("./assets/fonts/GeneralSans-Variable.ttf", {
 });
 registerFont("./assets/fonts/Satoshi-Variable.ttf", { family: "Satoshi Variable" });
 
-const app = express();
-// app.use(cors({
-//   origin:"*"
-// }));
-app.options('*', cors({
-  origin:"*"
-}));
 
-
-app.use(json({ limit: "50mb" }));
-app.post("/test",(_,res) => res.send("done"));
 
 app.post("/image", (req, res) => {
   const DOM = new JSDOM(`<!doctype html><html><body></body></html>`, {
