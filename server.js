@@ -7,11 +7,17 @@ import { registerFont } from "canvas";
 import { Image } from "canvas";
 
 const app = express();
-app.use(cors(
-  {
-    origin:"*"
-  }
-));
+const corsOptions = {
+origin:["http://localhost:5173","https://water-stamp.vercel.app"],
+methods:["GET","POST"],
+optionsSuccessStatus: 200
+}
+
+
+// middleware to parse the incoming request and for cors
+app.use(cors(corsOptions));
+app.use(express.json());
+
 app.use(json({ limit: "50mb" }));
 app.post("/test",(_,res) => res.send("done"));
 
