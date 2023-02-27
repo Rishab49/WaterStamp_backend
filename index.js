@@ -59,9 +59,9 @@ app.post("/image", (req, res) => {
   img.src = body.img;
 });
 
-// app.listen("3000", () => {
-//   console.log("listening");
-// });
+app.listen("3000", () => {
+  console.log("listening");
+});
 
 
 module.exports = app;
