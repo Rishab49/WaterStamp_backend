@@ -1,3 +1,4 @@
+import { Image } from '@napi-rs/canvas';
 
 
 
@@ -47,7 +48,7 @@ export function drawText(ctx, obj, offsetLeft, offsetTop) {
   console.log("done with a text");
 }
 
-export function drawImage(ctx, obj, offsetLeft, offsetTop, document) {
+export function drawImage(ctx, obj, offsetLeft, offsetTop) {
   let {
     transformX,
     transformY,
@@ -64,7 +65,7 @@ export function drawImage(ctx, obj, offsetLeft, offsetTop, document) {
   let y = transformY - offsetTop + elemBoundingRect.height / 2;
   let imgX = transformX - offsetLeft;
   let imgY = transformY - offsetTop + 35;
-  let imgElement = document.createElement("img");
+  let imgElement = new Image();
   imgElement.src = img;
   return new Promise((res) => {
     imgElement.onload = function () {

@@ -1,6 +1,5 @@
 import express, { json } from "express";
 import cors from "cors";
-import { JSDOM } from "jsdom";
 import { drawText, drawImage } from "./methods/helper.js";
 import { createCanvas } from '@napi-rs/canvas';
 import { registerFont } from 'canvas';
@@ -24,13 +23,10 @@ registerFont("./assets/fonts/GeneralSans-Variable.ttf", {
 registerFont("./assets/fonts/Satoshi-Variable.ttf", { family: "Satoshi Variable" });
 
 app.post("/image", (req, res) => {
-  const DOM = new JSDOM(`<!doctype html><html><body></body></html>`, {
-    resources: "usable",
-  });
+ 
   let canvas;
   let ctx;
   let body = req.body.params;
-  let document = DOM.window.document;
   let img = new Image();
 
   img.onload = function () {
@@ -46,8 +42,7 @@ app.post("/image", (req, res) => {
             ctx,
             el.element,
             body.offsetLeft,
-            body.offsetTop,
-            document
+            body.offsetTop
           )
     );
 
