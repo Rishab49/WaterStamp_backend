@@ -22,9 +22,13 @@ const app = express();
 // app.use(cors({
 //   origin:"*"
 // }));
-app.options('*', cors());
+app.options('*', cors({
+  origin:"*"
+}));
+
 
 app.use(json({ limit: "50mb" }));
+app.post("/test",(_,res) => res.send("done"));
 
 app.post("/image", (req, res) => {
   const DOM = new JSDOM(`<!doctype html><html><body></body></html>`, {
