@@ -12,11 +12,10 @@ app.use(cors(
 app.use(json({ limit: "50mb" }));
 
 // registering fonts
-GlobalFonts.registerFromPath(join(__dirname, ".","assets",".","fonts","Chillax-Variable.ttf"), "Chillax Variable");
-GlobalFonts.registerFromPath(join(__dirname, ".","assets",".","fonts","ClashGrotesk-Variable.ttf"), "Clash Grotesk Variable");
-GlobalFonts.registerFromPath(join(__dirname, ".","assets",".","fonts","GeneralSans-Variable.ttf"), "General Sans Variable");
-GlobalFonts.registerFromPath(join(__dirname, ".","assets",".","fonts","Satoshi-Variable.ttf"), "Satoshi Variable");
-
+GlobalFonts.registerFromPath("./assets/fonts/Chillax-Variable.ttf", "Chillax Variable");
+GlobalFonts.registerFromPath("./assets/fonts/ClashGrotesk-Variable.ttf", "Clash Grotesk Variable");
+GlobalFonts.registerFromPath("./assets/fonts/GeneralSans-Variable.ttf", "General Sans Variable");
+GlobalFonts.registerFromPath("./assets/fonts/Satoshi-Variable.ttf", "Satoshi Variable");
 
 // registerFont("./assets/fonts/Chillax-Variable.ttf", { family: "Chillax Variable" });
 // registerFont("./assets/fonts/ClashGrotesk-Variable.ttf", {
