@@ -19,7 +19,15 @@ registerFont("./assets/fonts/GeneralSans-Variable.ttf", {
 registerFont("./assets/fonts/Satoshi-Variable.ttf", { family: "Satoshi Variable" });
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://water-stamp.vercel.app/edit"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 app.use(json({ limit: "50mb" }));
 
 app.post("/image", (req, res) => {
