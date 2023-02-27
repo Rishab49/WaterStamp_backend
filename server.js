@@ -9,11 +9,10 @@ import { Image } from "canvas";
 const app = express();
 app.use(cors(
   {
-    origin:"https://water-stamp.vercel.app"
+    origin:["http://localhost:5173","https://water-stamp.vercel.app"]
   }
 ));
 app.use(json({ limit: "50mb" }));
-app.post("/test",(_,res) => res.send("done"));
 
 // registering fonts
 registerFont("./assets/fonts/Chillax-Variable.ttf", { family: "Chillax Variable" });
@@ -57,7 +56,7 @@ app.post("/image", (req, res) => {
 
     let data = canvas.toDataURL();
 
-    res.send(data);
+    res.send(JSON.stringify({data:data}));
   };
   img.src = body.img;
 });
