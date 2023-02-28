@@ -33,31 +33,34 @@ app.post("/image", (req, res) => {
   let ctx;
   let body = req.body.params;
   let img = new Image();
-  console.log(img);
-  img.onload = function () {
+  // console.log(img);
+  img.onload = async function () {
     canvas = createCanvas(img.width, img.height);
     ctx = canvas.getContext("2d");
     console.log("load completed");
     ctx.drawImage(img, 0, 0, img.width, img.height);
     ctx.scale(body.scale, body.scale);
-    body.elements.forEach(async (el) =>
+    for(let el of body.elements){
       el.type == "text"
-        ? drawText(ctx, el.element, body.offsetLeft, body.offsetTop)
-        : await drawImage(
-            ctx,
-            el.element,
-            body.offsetLeft,
-            body.offsetTop
-          )
-    );
+      ? drawText(ctx, el.element, body.offsetLeft, body.offsetTop)
+      : await drawImage(
+          ctx,
+          el.element,
+          body.offsetLeft,
+          body.offsetTop
+        )
+    }
+    // await body.elements.forEach(async (el) =>
+     
+    // );
 
     let data = canvas.toDataURL();
 
     res.send(JSON.stringify({data:data}));
   };
-  console.log(body);
-  console.log(typeof body);
-  console.log({name:"Rishab"})
+  // console.log(body);
+  // console.log(typeof body);
+  // console.log({name:"Rishab"})
   img.src = new Buffer(body.img.replace(/^data:image\/(png|gif|jpeg);base64,/,''),"base64");
 });
 

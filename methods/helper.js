@@ -1,7 +1,4 @@
-import { Image } from '@napi-rs/canvas';
-
-
-
+import { Image } from "@napi-rs/canvas";
 
 export function drawText(ctx, obj, offsetLeft, offsetTop) {
   let {
@@ -29,7 +26,7 @@ export function drawText(ctx, obj, offsetLeft, offsetTop) {
   ctx.rotate((angle * Math.PI) / 180);
   ctx.translate(-x, -y);
   ctx.fillStyle = color;
-  ctx.globalAlpha = opacity;
+  ctx.globalAlpha = Number(opacity);
   let str = `${fontStyle} ${fontWeight} ${fontSize} ${fontFamily}`;
   console.log(str);
   if (underline.includes("underline")) {
@@ -48,7 +45,7 @@ export function drawText(ctx, obj, offsetLeft, offsetTop) {
   console.log("done with a text");
 }
 
-export function drawImage(ctx, obj, offsetLeft, offsetTop) {
+export async function drawImage(ctx, obj, offsetLeft, offsetTop) {
   let {
     transformX,
     transformY,
@@ -60,25 +57,30 @@ export function drawImage(ctx, obj, offsetLeft, offsetTop) {
     img,
   } = obj;
 
-  console.log(img);
   let x = transformX - offsetLeft + elemBoundingRect.width / 2;
   let y = transformY - offsetTop + elemBoundingRect.height / 2;
   let imgX = transformX - offsetLeft;
   let imgY = transformY - offsetTop + 35;
   let imgElement = new Image();
-  imgElement.src = new Buffer(img.replace(/^data:image\/(png|gif|jpeg);base64,/,''),"base64");
-  return new Promise((res) => {
+  let promise = new Promise((res) => {
     imgElement.onload = function () {
+      console.log("image loaded", opacity, imgElement.complete);
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate((angle * Math.PI) / 180);
       ctx.translate(-x, -y);
-      ctx.globalAlpha = opacity;
-      ctx.drawImage(img, imgX, imgY, width, height);
+      ctx.globalAlpha = Number(opacity);
+      ctx.drawImage(imgElement, imgX, imgY, width, height);
       ctx.restore();
       ctx.globalAlpha = 1;
-      console.log("done with an image");
       res("done");
     };
   });
+
+  imgElement.src = new Buffer(
+    img.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
+    "base64"
+  );
+
+  return promise;
 }
