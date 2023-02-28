@@ -77,7 +77,7 @@ export async function drawImage(ctx, obj, offsetLeft, offsetTop) {
     };
   });
 
-  imgElement.src = new Buffer(
+  imgElement.src = new Buffer.from(
     img.replace(/^data:image\/(png|gif|jpeg);base64,/, ""),
     "base64"
   );

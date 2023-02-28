@@ -61,7 +61,7 @@ app.post("/image", (req, res) => {
   // console.log(body);
   // console.log(typeof body);
   // console.log({name:"Rishab"})
-  img.src = new Buffer(body.img.replace(/^data:image\/(png|gif|jpeg);base64,/,''),"base64");
+  img.src = new Buffer.from(body.img.replace(/^data:image\/(png|gif|jpeg);base64,/,''),"base64");
 });
 
 app.listen("3000", () => {
