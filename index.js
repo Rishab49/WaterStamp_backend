@@ -3,7 +3,7 @@ import cors from "cors";
 import { drawText, drawImage } from "./methods/helper.js";
 import { createCanvas,GlobalFonts } from '@napi-rs/canvas';
 import { Image } from '@napi-rs/canvas';
-import serverless from "serverless-http";
+
 const app = express();
 app.use(cors(
   {
@@ -18,14 +18,6 @@ GlobalFonts.registerFromPath("./assets/fonts/ClashGrotesk-Variable.ttf", "Clash 
 GlobalFonts.registerFromPath("./assets/fonts/GeneralSans-Variable.ttf", "General Sans Variable");
 GlobalFonts.registerFromPath("./assets/fonts/Satoshi-Variable.ttf", "Satoshi Variable");
 
-// registerFont("./assets/fonts/Chillax-Variable.ttf", { family: "Chillax Variable" });
-// registerFont("./assets/fonts/ClashGrotesk-Variable.ttf", {
-//   family: "Clash Grotesk Variable",
-// });
-// registerFont("./assets/fonts/GeneralSans-Variable.ttf", {
-//   family: "General Sans Variable",
-// });
-// registerFont("./assets/fonts/Satoshi-Variable.ttf", { family: "Satoshi Variable" });
 const getBase64StringFromDataURL = (dataURL) =>
     dataURL.replace('data:', '').replace(/^.+,/, '');
 app.post("/image", (req, res) => {
@@ -34,7 +26,7 @@ app.post("/image", (req, res) => {
   let ctx;
   let body = req.body.params;
   let img = new Image();
-  // console.log(img);
+
   img.onload = async function () {
     canvas = createCanvas(img.width, img.height);
     ctx = canvas.getContext("2d");
@@ -51,17 +43,12 @@ app.post("/image", (req, res) => {
           body.offsetTop
         )
     }
-    // await body.elements.forEach(async (el) =>
-     
-    // );
-
+  
     let data = canvas.toDataURL();
 
     res.send(JSON.stringify({data:data}));
   };
-  // console.log(body);
-  // console.log(typeof body);
-  // console.log({name:"Rishab"})
+
   img.src = new Buffer.from(body.img.replace(/^data:image\/(png|gif|jpeg);base64,/,''),"base64");
 });
 
@@ -69,6 +56,4 @@ app.listen("3000", () => {
   console.log("listening");
 });
 
-export default {
-  handler:serverless(app)
-}
+export default app;
