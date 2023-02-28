@@ -3,6 +3,7 @@ import cors from "cors";
 import { drawText, drawImage } from "./methods/helper.js";
 import { createCanvas,GlobalFonts } from '@napi-rs/canvas';
 import { Image } from '@napi-rs/canvas';
+import serverless from "serverless-http";
 const app = express();
 app.use(cors(
   {
@@ -68,5 +69,6 @@ app.listen("3000", () => {
   console.log("listening");
 });
 
-
-export default app;
+export default {
+  handler:serverless(app)
+}
