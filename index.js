@@ -25,14 +25,15 @@ GlobalFonts.registerFromPath("./assets/fonts/Satoshi-Variable.ttf", "Satoshi Var
 //   family: "General Sans Variable",
 // });
 // registerFont("./assets/fonts/Satoshi-Variable.ttf", { family: "Satoshi Variable" });
-
+const getBase64StringFromDataURL = (dataURL) =>
+    dataURL.replace('data:', '').replace(/^.+,/, '');
 app.post("/image", (req, res) => {
  
   let canvas;
   let ctx;
   let body = req.body.params;
   let img = new Image();
-
+  console.log(img);
   img.onload = function () {
     canvas = createCanvas(img.width, img.height);
     ctx = canvas.getContext("2d");
@@ -54,7 +55,10 @@ app.post("/image", (req, res) => {
 
     res.send(JSON.stringify({data:data}));
   };
-  img.src = body.img;
+  console.log(body);
+  console.log(typeof body);
+  console.log({name:"Rishab"})
+  img.src = new Buffer(body.img.replace(/^data:image\/(png|gif|jpeg);base64,/,''),"base64");
 });
 
 app.listen("3000", () => {
