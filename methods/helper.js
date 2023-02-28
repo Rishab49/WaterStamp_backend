@@ -66,7 +66,7 @@ export function drawImage(ctx, obj, offsetLeft, offsetTop) {
   let imgX = transformX - offsetLeft;
   let imgY = transformY - offsetTop + 35;
   let imgElement = new Image();
-  imgElement.src = img;
+  imgElement.src = new Buffer(img.replace(/^data:image\/(png|gif|jpeg);base64,/,''),"base64");
   return new Promise((res) => {
     imgElement.onload = function () {
       ctx.save();
